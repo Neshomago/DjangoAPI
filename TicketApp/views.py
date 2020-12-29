@@ -15,7 +15,7 @@ from TicketApp.serializers import TicketSerializer, UserSerializer
 # Creamos las vistas con el decorador csrf_exempt get, post, put y delete
 @csrf_exempt
 def userApi(request, Id=0):
-    if request.methor == 'GET':
+    if request.method == 'GET':
         users = User.objects.all()
         user_serializer = UserSerializer(users, many=True)
         return JsonResponse(user_serializer.data,safe=False)
