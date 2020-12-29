@@ -9,10 +9,10 @@ from django.http.response import JsonResponse
 
 #importamos los los modelos creados en la app y sus respectivos serializadores
 from TicketApp.models import Tickets, Customers, Clients, Agency, User
-from TicketApp.serializers import TicketSerializer, UserSerializer
+from TicketApp.serializers import TicketSerializer, UserSerializer, AgencySerializer
 
 
-# Creamos las vistas con el decorador csrf_exempt get, post, put y delete
+# userApi - Creamos las vistas con el decorador csrf_exempt get, post, put y delete
 @csrf_exempt
 def userApi(request, Id=0):
     if request.method == 'GET':
@@ -40,4 +40,35 @@ def userApi(request, Id=0):
     elif request.method=='DELETE':
         users=User.objects.get(UserId=id)
         users.delete()
+        return JsonResponse("X Succesfull Delete X")
+
+
+# agencyApi - Creamos las vistas con el decorador csrf_exempt get, post, put y delete
+@csrf_exempt
+def agencyApi(request, id=0):
+    if request.method == 'GET':
+        agencies = Agency.objects.all()
+        agency_serializer = AgencySerializer(agencies, many=True)
+        return JsonResponse(agency_serializer.data,safe=False)
+    
+    elif request.method=='POST':
+        agency_data = JSONParser().parse(request)
+        agency_serializer = AgencySerializer(data=agency_data)
+        if agency_serializer.is_valid():
+            agency_serializer.save()
+            return JsonResponse("Succesfull Add!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+    
+    elif request.method =='PUT':
+        agency_data = JSONParser().parse(request)
+        agencies = Agency.objects.get(AgencyId=agency_data['id'])
+        agency_serializer = AgencySerializer(agencies,data=agency_data)
+        if agency_serializer.is_valid():
+            agency_serializer.save()
+            return JsonResponse("Succesfull Update!", safe=False)
+        return JsonResponse("Fail Update", safe=False)
+
+    elif request.method=='DELETE':
+        agencies=Agency.objects.get(id=id)
+        agencies.delete()
         return JsonResponse("X Succesfull Delete X")
