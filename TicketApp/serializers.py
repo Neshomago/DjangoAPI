@@ -10,3 +10,8 @@ class TicketSerializer (serializers.ModelSerializer):
     class Meta:
         model = Tickets
         fields = ('TicketId','SalesPoint','RequestType','Priority','TicketCode','Client','TicketDescrp')
+
+class AgencySerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Agency
+        fields = ('AgencyName', 'AgencyIVA', 'AgencyManagerId', 'AgencyCertification', 'AgencyAddress', 'AgencyEmail', 'AgencyPhone')
