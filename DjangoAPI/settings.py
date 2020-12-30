@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
     'TicketApp.apps.TicketappConfig',
-    'rest_framework'
+    #'rest_auth',
+    #'django.contrib.sites',
+    #'allauth',
+    #'allauth.account',
+    #'rest_auth.registration',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -118,6 +124,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Configuramos JWT para expirar luego de 1 hora y permitimos que los usuarios refresquen sus tokens cerca del tiempo
+#JWT_AUTH = {
+#    'JWT_EXPIRATION_DELTA':datetime.timedelta(hours=1),
+#    'JWT_ALLOW_REFRESH': True,
+#}
+#Hacemos que JWT sea el predeterminado para django
+#REST_FRAMEWORK = {
+#    'DEFAULT_ATHENTICATION_CLASSES':(
+#        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#    ),
+#}
+#habiltar django-rest-auth para usar JWT tokens en vez de los regulares
+#REST_USE_JWT = True
+
+#Para que funcione el registro en la app con django.contrib.sites
+#SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

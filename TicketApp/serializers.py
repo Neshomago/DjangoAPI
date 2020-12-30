@@ -1,10 +1,16 @@
 from rest_framework import serializers
 from TicketApp.models import User, Clients, Tickets, Customers, Agency
 
-class UserSerializer (serializers.ModelSerializer):
+class UserSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('UserId','UserName', 'UserEmail','UserPassword','UserRole')
+        extra_kwargs = {'UserPassword':{'write_only': True, 'required': True}}
+
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 class TicketSerializer (serializers.ModelSerializer):
     class Meta:
@@ -15,3 +21,13 @@ class AgencySerializer (serializers.ModelSerializer):
     class Meta:
         model = Agency
         fields = ('AgencyName', 'AgencyIVA', 'AgencyManagerId', 'AgencyCertification', 'AgencyAddress', 'AgencyEmail', 'AgencyPhone')
+
+class ContactSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Clients
+        fields = ('ClientName','ClientSurname','ClientFiscal','ClientContact','ClientContactAddress','ClientContactEmail','ClientContactPhone')
+
+class CustomerSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Customers
+        fields = ('CustomerID', 'CustomerName', 'CustomerIVA','CustomerAddress','CustomerEmail','CustomerPhone')

@@ -16,9 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+#token de autenticacion
+from rest_framework.authtoken.views import ObtainAuthToken
+#from rest_framework_jwt.views import refresh_jwt_token <-Para token JWT
+
 from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include('TicketApp.urls'))
+    url(r'^', include('TicketApp.urls')),
+    #Tokens JWT
+    # url(r'^rest-auth/',include('rest_auth.urls')),
+    # url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    # url(r'^refresh-token/', refresh_jwt_token),
+
+    url(r'^auth/', ObtainAuthToken.as_view()), #eltoken auth como vista
 ]
