@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class TicketappConfig(AppConfig):
+class TicketAppConfig(AppConfig):
     name = 'TicketApp'

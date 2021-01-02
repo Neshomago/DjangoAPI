@@ -1,33 +1,34 @@
 from rest_framework import serializers
 from TicketApp.models import User, Clients, Tickets, Customers, Agency
 
-class UserSerializer (serializers.HyperlinkedModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('UserId','UserName', 'UserEmail','UserPassword','UserRole')
-        extra_kwargs = {'UserPassword':{'write_only': True, 'required': True}}
+        fields = ('UserId', 'UserName', 'UserEmail', 'UserPassword', 'UserRole')
 
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
-
-class TicketSerializer (serializers.ModelSerializer):
+class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tickets
-        fields = ('TicketId','SalesPoint','RequestType','Priority','TicketCode','Client','TicketDescrp')
+        fields = ('TicketId', 'SalesPoint', 'RequestType', 'Priority', 'TicketCode', 'Client', 'TicketDescrp')
 
-class AgencySerializer (serializers.ModelSerializer):
+
+class AgencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Agency
-        fields = ('AgencyName', 'AgencyIVA', 'AgencyManagerId', 'AgencyCertification', 'AgencyAddress', 'AgencyEmail', 'AgencyPhone')
+        fields = ('AgencyName', 'AgencyIVA', 'AgencyManagerId', 'AgencyCertification', 'AgencyAddress',
+                  'AgencyEmail', 'AgencyPhone')
 
-class ContactSerializer (serializers.ModelSerializer):
+
+class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clients
-        fields = ('ClientName','ClientSurname','ClientFiscal','ClientContact','ClientContactAddress','ClientContactEmail','ClientContactPhone')
+        fields = ('ClientName', 'ClientSurname', 'ClientFiscal', 'ClientContact', 'ClientContactAddress',
+                  'ClientContactEmail', 'ClientContactPhone')
 
-class CustomerSerializer (serializers.ModelSerializer):
+
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customers
-        fields = ('CustomerID', 'CustomerName', 'CustomerIVA','CustomerAddress','CustomerEmail','CustomerPhone')
+        fields = ('CustomerID', 'CustomerName', 'CustomerIVA', 'CustomerAddress', 'CustomerEmail', 'CustomerPhone')

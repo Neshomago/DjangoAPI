@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-#token de autenticacion
+# token de autenticacion
 from rest_framework.authtoken.views import ObtainAuthToken
-#from rest_framework_jwt.views import refresh_jwt_token <-Para token JWT
 
+# from rest_framework_jwt.views import refresh_jwt_token <-Para token JWT
 from django.conf.urls import url, include
 
 urlpatterns = [
